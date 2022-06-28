@@ -12,8 +12,8 @@ services:
       context: .
       dockerfile: Dockerfile
     command: sleep infinity
-    ports:
-      - 3000:3000
+    environment:
+      - PORT = 3000
     depends_on:
       - mysql
   mysql:
