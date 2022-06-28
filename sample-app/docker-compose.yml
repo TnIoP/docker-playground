@@ -1,12 +1,19 @@
 version: '3.8'
 services:
+  nginx:
+    container_name: nginx
+    image: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
   app:
     build:
       context: .
       dockerfile: Dockerfile
     command: sleep infinity
     ports:
-      - '3000:3000'
+      - 3000:3000
     depends_on:
       - mysql
   mysql:
