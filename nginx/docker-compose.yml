@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  nginx:
+    container_name: nginx
+    image: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: sleep infinity
+    environment:
+      - PORT = 3000
+    depends_on:
+      - mysql
+  mysql:
+    platform: linux/amd64 # mac m1
+    image: mysql
+    command: tail -f /dev/null
+    container_name: mysql-db
+    environment:
+        - MYSQL_DATABASE=test
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        - TZ=Asia/Seoul
+    command:
+        - --character-set-server=utf8mb4
+        - --collation-server=utf8mb4_unicode_ci
+    volumes:
+        - mysql:/var/lib/mysql # db 볼륨 처리
+    ports:
+      - 3306:3306
+volumes:
+  mysql:
