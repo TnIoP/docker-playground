@@ -1,5 +1,5 @@
 ## Description
-docker test repository 
+nginx practice repository
 - framework
   - [Nest](https://github.com/nestjs/nest) 
 - orm
